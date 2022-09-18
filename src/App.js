@@ -9,7 +9,9 @@ import CoursePage from './course_page/CoursePage'
 import DarkFooter from "./DarkFooter";
 import Spinner from "./spinner";
 export default function All() {
-  const [data, setdata] = useState([]);
+  const [data, setdata] = useState([]); 
+  const [word,setword]=useState("")
+  
   useEffect(() => {
       axios
           .get(`https://api.npoint.io/bd8d7dda3c4a148ee5a8`)
@@ -19,6 +21,9 @@ export default function All() {
           .catch((err) => {
           })
   }, []);
+ console.log("//");
+ console.log(word);
+ console.log("//");
   if(data.length==0)
   {
     return(
@@ -31,13 +36,14 @@ export default function All() {
     return (
     <div>
     <Router>
-      <Navbar />
+      <Navbar search={((word) => setword(word))}/>
       <Routes>
-          <Route path="/" element={<> <Midel  /><Courses info={data}/><Categories />  </>} />
-          <Route path="/course1" element={<CoursePage info={data[0]}/>} />
-        <Route path="/course2" element={<CoursePage info={data[1]}/>} />
-        <Route path="/course3" element={<CoursePage info={data[2]}/>} />
-        <Route path="/course4" element={<CoursePage info={data[3]}/>} />
+          <Route path="/" element={<> <Midel  /><Courses info={data } need={word}/><Categories />  </>} />
+        
+          {
+            data.map((course) => <Route path={'/' + course.id}
+              element={<CoursePage info={course} />} />)
+          }
         <Route path="*" element={<> <Midel  /><Courses info={data}/><Categories />  </>} />
       </Routes>
       <DarkFooter/>

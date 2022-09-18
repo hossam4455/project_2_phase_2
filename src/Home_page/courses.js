@@ -32,7 +32,8 @@ export default function Courses(props) {
         </div>
         <div className='row'>
             {
-             props.info.map((Course)=>   <Card info={Course} />)    
+                
+             props.info.map((Course)=>   (Course.title.toLowerCase().indexOf(props.need.toLowerCase()) != -1) && <Card info={Course} />)    
             }
         </div>
         </div>

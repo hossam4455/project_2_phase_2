@@ -22,7 +22,7 @@ export default function Card(props) {
   return (
         <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 small-course">
             <div className="card h-100">
-                <img onClick={()=>navigate("/course"+props?.info.id)} className="d-block w-100 h-100 card-img-top" src={props.info?.image} alt="python course" />
+                <img onClick={()=>navigate("/"+props?.info.id)} className="d-block w-100 h-100 card-img-top" src={props.info?.image} alt="python course" />
                 <div className="card-body">
                   <h4 className="card-title">{props.info?.title}</h4>
                   <p className="card-text">{props.info?.instructor[props.id]?.name}</p>

@@ -1,9 +1,17 @@
-import React from "react";
+import React ,{useState} from "react";
 import "./styles/navbar.css";
 import "https://kit.fontawesome.com/490c8b9b10.js";
 import { useNavigate } from 'react-router-dom'
-export default function Navbar() {
+
+export default function Navbar(props) {
   const navigate = useNavigate();
+  const [word, setword] = useState('');
+  const handleSubmit = event => {
+    props.search(word)
+    navigate('/');
+    event.preventDefault();
+  };
+
   return (
     <div className="navbar">
       <label className="bar-icon">
@@ -11,7 +19,8 @@ export default function Navbar() {
       </label>
       <div>
         <a className="active" >
-          <img onClick={() => navigate('/')}
+          <img onClick={() => {navigate('/')
+          props.search("")}}
             src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
             width="91"
             height="34"
@@ -24,7 +33,7 @@ export default function Navbar() {
         <a className="Categories_mobile" >Categories</a>
       </div>
       <div className="search-container mobile">
-        <form className="mobile">
+        <form className="mobile" onSubmit={handleSubmit}>
           <div className="for-search-icon">
             <button onClick={() => navigate('/')} id="searchIcon" type="submit" >
               <i className="fa fa-search" ></i>
@@ -36,6 +45,7 @@ export default function Navbar() {
               type="text"
               placeholder="Search for anything"
               name="search"
+              onChange={e => setword(e.target.value)}
             />
           </div>
         </form>
